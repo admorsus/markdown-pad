@@ -1,3 +1,4 @@
+doc/
 src/test/
 
 # Created by https://www.gitignore.io/api/maven,eclipse
@@ -86,3 +87,6 @@ buildNumber.properties
 .flattened-pom.xml
 
 # End of https://www.gitignore.io/api/maven,eclipse
+
+# Temporary files
+run.sh

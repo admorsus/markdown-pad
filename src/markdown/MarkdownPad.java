@@ -29,17 +29,16 @@ import com.vladsch.flexmark.parser.Parser;
 import com.vladsch.flexmark.util.ast.Node;
 import com.vladsch.flexmark.util.data.MutableDataSet;
 
+/**
+ * WYSIWYG Markdown editor desktop application, based on Swing. <br>
+ * Free Software, see license file.
+ * 
+ * @author Miguel Bautista Pérez
+ * @version 1.0
+ */
 @SuppressWarnings("serial")
 
-/**
- * WYSIWYG markdown editor desktop application.
- * 
- * Licensed under MIT, see LICENSE file
- * 
- * @author admorsus - Miguel Bautista Pérez
- */
-
-public class MarkdownEditor extends JFrame {
+public class MarkdownPad extends JFrame {
 
 	private String content;
 	private String displayState;
@@ -58,7 +57,10 @@ public class MarkdownEditor extends JFrame {
 	private Action saveAction = new SaveAction();
 	private Action exitAction = new ExitAction();
 
-	public MarkdownEditor() {
+	/**
+	 * Default constructor.
+	 */
+	public MarkdownPad() {
 		displayState = "text";
 
 		// Flexmark Objects //
@@ -144,10 +146,10 @@ public class MarkdownEditor extends JFrame {
 	}
 
 	/**
-	 * Creates the html document used to give format to the given markdown code
+	 * Creates the HTML document to visualize to the given Markdown code.
 	 * 
 	 * @param markdown code string to be rendered
-	 * @return html string
+	 * @return HTML string
 	 */
 	public String renderHtml(String markdown) {
 		Node document = markdownParser.parse(markdown);
@@ -155,14 +157,14 @@ public class MarkdownEditor extends JFrame {
 	}
 
 	/**
-	 * stores the content for further processing
+	 * Stores the Editor panel content.
 	 */
-	public void keepContent() {
+	public void storeContent() {
 		content = editor.getText();
 	}
 
 	/**
-	 * Action to show a File Chooser dialog and open the selected file
+	 * Action to show a File Chooser dialog to open the selected file.
 	 * 
 	 * @author Fred Swartz
 	 */
@@ -173,7 +175,7 @@ public class MarkdownEditor extends JFrame {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			int retval = fileChooser.showOpenDialog(MarkdownEditor.this);
+			int retval = fileChooser.showOpenDialog(MarkdownPad.this);
 			if (retval == JFileChooser.APPROVE_OPTION) {
 				File f = fileChooser.getSelectedFile();
 				try {
@@ -185,12 +187,12 @@ public class MarkdownEditor extends JFrame {
 					System.exit(1);
 				}
 			}
-			keepContent();
+			storeContent();
 		}
 	}
 
 	/**
-	 * Action to show a File Chooser dialog and save the edited file
+	 * Action to show a File Chooser dialog to save the edited file.
 	 * 
 	 * @author Fred Swartz
 	 */
@@ -201,14 +203,14 @@ public class MarkdownEditor extends JFrame {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			int retval = fileChooser.showSaveDialog(MarkdownEditor.this);
+			int retval = fileChooser.showSaveDialog(MarkdownPad.this);
 			if (retval == JFileChooser.APPROVE_OPTION) {
 				File f = fileChooser.getSelectedFile();
 				try {
 					FileWriter writer = new FileWriter(f);
 					editor.write(writer); // Use TextComponent write
 				} catch (IOException ioex) {
-					JOptionPane.showMessageDialog(MarkdownEditor.this, ioex);
+					JOptionPane.showMessageDialog(MarkdownPad.this, ioex);
 					System.exit(1);
 				}
 			}
@@ -216,7 +218,7 @@ public class MarkdownEditor extends JFrame {
 	}
 
 	/**
-	 * Action used to exit the program
+	 * Action used to exit the program.
 	 */
 	class ExitAction extends AbstractAction {
 
@@ -231,10 +233,10 @@ public class MarkdownEditor extends JFrame {
 	}
 
 	/**
-	 * Sets the display state for the JEditorPane.
+	 * Sets the display state for the Editor panel.
 	 * 
 	 * @param state to be set, which can be {@code text | md | html}
-	 * @return true if {@code state} is different than the previous state.
+	 * @return True if {@code state} is different than the previous state.
 	 */
 	public boolean setDisplayState(String state) {
 		if (state.equals(displayState)) {
@@ -242,7 +244,7 @@ public class MarkdownEditor extends JFrame {
 			// if verbosity syso state not changed
 		}
 		if (displayState.equals("text")) {
-			keepContent();
+			storeContent();
 		}
 		displayState = state;
 
@@ -259,14 +261,14 @@ public class MarkdownEditor extends JFrame {
 	}
 
 	/**
-	 * Main method that just creates a new instance of the app
+	 * Main method, creates a new instance of the app.
 	 */
 	public static void main(String[] args) {
-		new MarkdownEditor();
+		new MarkdownPad();
 	}
 
 	/**
-	 * Makes a menu able to be opened by right click
+	 * Makes a menu able to be opened by right click.
 	 * 
 	 * @param component where to right click
 	 * @param popup     menu to be opened

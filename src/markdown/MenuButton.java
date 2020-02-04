@@ -8,14 +8,14 @@ import javax.swing.JToggleButton;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
 
-@SuppressWarnings("serial")
-
 /**
- * Button which can open a given popup menu
+ * Button that opens the given popup menu when clicked.
  * 
- * @author luca
- * @author admorsus
+ * @author Miguel Bautista Pérez
+ * @author Luca (from stackoverflow)
+ * @version 1.1
  */
+@SuppressWarnings("serial")
 
 public class MenuButton extends JToggleButton {
 
@@ -23,10 +23,10 @@ public class MenuButton extends JToggleButton {
 	private boolean openState = false;
 
 	/**
-	 * Default constructor
+	 * Default constructor.
 	 * 
 	 * @param name to be displayed in the button
-	 * @param menu menu to be displayed when clicked
+	 * @param menu to be displayed when button is clicked
 	 */
 	public MenuButton(String name, JPopupMenu menu) {
 		super(name);
